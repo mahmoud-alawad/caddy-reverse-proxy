@@ -1,0 +1,26 @@
+{
+    local_certs
+}
+
+
+admin.localhost {
+    log {
+        output stdout
+    }
+
+    reverse_proxy http://172.17.0.1:1337 {
+        header_down -Access-Control-Allow-Origin
+    }
+}
+
+
+
+localhost {
+    log {
+        output stdout
+    }
+
+    reverse_proxy http://172.27.0.1:3000 {
+        header_down -Access-Control-Allow-Origin
+    }
+}

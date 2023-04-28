@@ -2,20 +2,19 @@ version: '3.9'
 
 volumes:
   caddy-data:
-  postgres-data:
 
 
 networks:
-  strapi:
-    name: Strapi
+  default:
+    name: Default
     driver: bridge
 
 services:
   caddy:
     image: ${CADDY_IMAGE}
     networks:
-      - strapi
-    restart: unless-stopped
+      - default
+    restart: always
     volumes:
       - caddy-data:/data
       - ./Caddyfile:/etc/caddy/Caddyfile
