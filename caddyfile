@@ -1,0 +1,21 @@
+{
+    local_certs
+}
+
+
+localhost {
+    @options {
+        method OPTIONS
+    }
+    header {
+        Access-Control-Allow-Origin *
+        Access-Control-Allow-Credentials true
+        Access-Control-Allow-Methods *
+        Access-Control-Allow-Headers *
+        defer
+    }
+    reverse_proxy http://localhost:1337 {
+        header_down -Access-Control-Allow-Origin
+    }
+    respond @options 204
+}

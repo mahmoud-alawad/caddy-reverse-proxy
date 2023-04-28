@@ -1,0 +1,26 @@
+version: '3.9'
+
+volumes:
+  caddy-data:
+  postgres-data:
+
+
+networks:
+  strapi:
+    name: Strapi
+    driver: bridge
+
+services:
+  caddy:
+    image: ${CADDY_IMAGE}
+    networks:
+      - strapi
+    restart: unless-stopped
+    volumes:
+      - caddy-data:/data
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./logs/caddy/:/var/log/caddy
+      - ./certs/:/data/certs
+    ports:
+      - "80:80"
+      - "443:443"
